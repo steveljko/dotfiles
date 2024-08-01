@@ -1,0 +1,68 @@
+// -*- mode: jsonc -*-
+{
+  "position": "top",
+  "modules-left": [
+    "sway/workspaces",
+    "sway/language",
+    "tray",
+    "sway/mode",
+    "sway/window"
+    ],
+    "modules-center": [
+      "clock"
+    ],
+    "modules-right": [
+      "pulseaudio",
+      "cpu",
+      "memory"
+    ],
+
+    "sway/workspaces": {
+      "all-outputs": true,
+      "disable-scroll": true,
+      "format": "{name}"
+    },
+    "sway/mode": {
+      "format": "{}"
+    },
+    "sway/language": {
+      "format": "<span text_transform='uppercase' font-weight='bold'>{short}</span>"
+    },
+    "sway/window": {
+      "all-outputs": false,
+      "format": "{}",
+      "icon": false,
+      "max-length": 60,
+      "rewrite": {
+        "(.*) - Youtube — Mozilla Firefox" : "  $1",
+        "(.*) — Mozilla Firefox"           : "󰈹 $1",
+        "nvim (.*)"                        : " $1",
+        "zsh (.*)"                         : " $1"
+      }
+    },
+    "tray": {
+      "icon-size": 14,
+      "spacing": 8
+    },
+    "clock": {
+      "timezone": "Europe/Belgrade",
+      "format": "  {:%I:%M %p}",
+      "format-alt": "󰃮 {:%d %B %Y (%a)}"
+    },
+    "cpu": {
+      "format": "  {usage}%",
+      "tooltip": true
+    },
+    "memory": {
+      "format": "  {}%"
+    },
+    "pulseaudio": {
+      "scroll-step": 5,
+      "format": "{icon}  {volume}%",
+      "format-icons": {
+        "default": ["", "", ""]
+      },
+      "on-click": "pavucontrol"
+    }
+}
+
