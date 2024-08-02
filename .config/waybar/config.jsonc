@@ -6,15 +6,15 @@
     "sway/language",
     "tray",
     "sway/mode",
-    "sway/window"
     ],
     "modules-center": [
-      "clock"
+      "sway/window"
     ],
     "modules-right": [
       "pulseaudio",
       "cpu",
-      "memory"
+      "memory",
+      "clock"
     ],
 
     "sway/workspaces": {
@@ -37,7 +37,8 @@
         "(.*) - Youtube — Mozilla Firefox" : "  $1",
         "(.*) — Mozilla Firefox"           : "󰈹 $1",
         "nvim (.*)"                        : " $1",
-        "zsh (.*)"                         : " $1"
+        "zsh (.*)"                         : " $1",
+        "(.*) - KeePassXC"                 : "  $1"
       }
     },
     "tray": {

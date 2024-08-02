@@ -44,21 +44,21 @@
 /* Modules */
 #language,
 #window,
-#clock,
 #pulseaudio,
 #cpu,
-#memory {
+#memory,
+#clock {
   color: #fff;
   border: none;
 }
 
-#language,
-#window {
+#language {
   margin: 0 12px;
 }
 
 #pulseaudio,
 #cpu,
-#memory {
+#memory,
+#clock {
   margin: 0 8px;
 }
