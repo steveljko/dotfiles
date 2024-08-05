@@ -44,6 +44,7 @@
 /* Modules */
 #language,
 #window,
+#custom-tasks,
 #pulseaudio,
 #cpu,
 #memory,
@@ -56,6 +57,7 @@
   margin: 0 12px;
 }
 
+#custom-tasks,
 #pulseaudio,
 #cpu,
 #memory,

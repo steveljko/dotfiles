@@ -5,12 +5,13 @@
     "sway/workspaces",
     "sway/language",
     "tray",
-    "sway/mode",
+    "sway/mode"
     ],
     "modules-center": [
       "sway/window"
     ],
     "modules-right": [
+      "custom/tasks",
       "pulseaudio",
       "cpu",
       "memory",
@@ -40,6 +41,16 @@
         "zsh (.*)"                         : " $1",
         "(.*) - KeePassXC"                 : "  $1"
       }
+    },
+    "custom/tasks": {
+      "format": "{icon} {}",
+      "format-icons": {
+        "tracking": "",
+        "idle": "󱡦"
+      },
+      "return-type": "json",
+      "exec": "~/.config/waybar/modules/tasks.sh",
+      "interval": 1
     },
     "tray": {
       "icon-size": 14,
