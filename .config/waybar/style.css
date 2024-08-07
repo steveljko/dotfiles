@@ -16,7 +16,7 @@
 
 #workspaces button {
   padding: 2px 4px;
-  color: #aaa;
+  color: #b2b2b2;
   font-weight: bold;
   border: none;
 }
@@ -29,7 +29,7 @@
 }
 
 #workspaces button.focused {
-  color: #eeeeee;
+  color: #fff;
 }
 
 #workspaces button.focused:hover {
