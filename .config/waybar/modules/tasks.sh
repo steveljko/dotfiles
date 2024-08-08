@@ -7,5 +7,5 @@ if [[ -n "$TASK" ]]; then
 else
   TASKS_COUNT=$(task status:pending count)
   TASKS_COMPLETED_COUNT=$(task end.after:today count)
-  printf "{\"text\": \"%s/%s\", \"tooltip\": \"%s\", \"alt\": \"%s\"}" \ "$TASKS_COUNT" "$TASKS_COMPLETED_COUNT" "Completed tasks: $TASKS_COMPLETED_COUNT\nTotal tasks: $TASKS_COUNT" "idle"
+  printf "{\"text\": \"%s/%s\", \"tooltip\": \"%s\", \"alt\": \"%s\"}" \ "$TASKS_COUNT" "$TASKS_COMPLETED_COUNT" "Completed tasks: $TASKS_COMPLETED_COUNT\nUnfinished tasks: $TASKS_COUNT" "idle"
 fi
