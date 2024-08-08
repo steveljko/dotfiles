@@ -46,7 +46,7 @@
       "format": "{icon} <span color='#b2b2b2'>{}</span>",
       "format-icons": {
         "tracking": "",
-        "idle": "󱡦"
+        "idle": ""
       },
       "return-type": "json",
       "exec": "~/.config/waybar/modules/tasks.sh",

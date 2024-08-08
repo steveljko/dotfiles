@@ -1,9 +1,11 @@
 #!/bin/sh
 TASK=$(timew | awk '/Tracking/ {print $2}')
-TIME=$(timew | awk '/Total/ {print $2}')
 
 if [[ -n "$TASK" ]]; then
+  TIME=$(timew | awk '/Total/ {print $2}')
   printf "{\"text\": \"%s\", \"tooltip\": \"%s\", \"alt\": \"%s\"}" \ "$TIME" "Task: $TASK\nFrom start: $TIME" "tracking"
 else
-  printf "{\"text\": \"\", \"tooltip\": \"%s\", \"alt\": \"%s\"}" \ "No active tracking at the moment." "idle"
+  TASKS_COUNT=$(task status:pending count)
+  TASKS_COMPLETED_COUNT=$(task end.after:today count)
+  printf "{\"text\": \"%s/%s\", \"tooltip\": \"%s\", \"alt\": \"%s\"}" \ "$TASKS_COUNT" "$TASKS_COMPLETED_COUNT" "Completed tasks: $TASKS_COMPLETED_COUNT\nTotal tasks: $TASKS_COUNT" "idle"
 fi
