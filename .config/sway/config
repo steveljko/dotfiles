@@ -1,0 +1,186 @@
+# [ Variables ]
+
+# logo key
+set $mod Mod4 
+
+# direction keys
+set $left h
+set $down j
+set $up k
+set $right l
+
+# preferred apps
+set $term alacritty
+set $menu fuzzel
+
+# [ Output ]
+
+# background
+output * bg ~/Pictures/waaaaaaaaaaaa.jpg fill
+
+# monitor
+output HDMI-A-1 resolution 1920x1080 position 1440,0
+
+# [ Input ]
+
+# languages
+input type:keyboard {
+  xkb_layout rs(latin),us,rs
+  # switch languages fast using right control on keyboard
+  xkb_options grp:rctrl_toggle
+}
+
+# [ Key Bindings ]
+
+# start a terminal
+bindsym $mod+Return exec $term
+# start menu
+bindsym $mod+d exec $menu
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+bindsym Print exec grim - | wl-copy && notify-send "Whole screen screenshot is copied to clipboard."
+bindsym $mod+Print exec grim -g "$(slurp -d)" - | wl-copy && notify-send "Screenshot is copied to clipboard."
+bindsym $mod+Shift+p exec grim ~/Pictures/Screenshots/$(date +'%s_grim.png') && notify-send "Screenshot has been store in directory."
+
+# volume controls
+bindsym $mod+Alt+O exec pamixer -d 10
+bindsym $mod+Alt+P exec pamixer -i 10
+bindsym $mod+Alt+I exec pamixer -i 5
+bindsym $mod+Alt+U exec pamixer -d 5
+bindsym $mod+Alt+M exec pamixer -t
+bindsym $mod+Alt+K exec playerctl play-pause
+
+# set floating window behavior to normal when activated with the modifier key
+floating_modifier $mod normal
+
+# reload config
+bindsym $mod+Shift+c reload
+
+# log out of wayland session
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+# run apps faster
+bindsym $mod+Shift+f exec firefox
+bindsym $mod+Shift+n exec dolphin
+
+# [ Moving around ]
+
+# move focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# move windows around
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# [ Workspaces ]
+
+# switch workspace
+bindsym $mod+1 workspace 1 1:I
+bindsym $mod+2 workspace 2 2:II
+bindsym $mod+3 workspace 3 3:III
+bindsym $mod+4 workspace 4 4:IV
+bindsym $mod+5 workspace 5 5:V
+bindsym $mod+6 workspace 6 6:VI
+bindsym $mod+7 workspace 7 7:VII
+bindsym $mod+8 workspace 8 8:VIII
+bindsym $mod+9 workspace 9 9:IX
+bindsym $mod+0 workspace 10 10:X
+
+# move focused window to workspace
+bindsym $mod+Shift+1 move container to workspace 1 1:I 
+bindsym $mod+Shift+2 move container to workspace 2 2:II
+bindsym $mod+Shift+3 move container to workspace 3 3:III 
+bindsym $mod+Shift+4 move container to workspace 4 4:IV
+bindsym $mod+Shift+5 move container to workspace 5 5:V
+bindsym $mod+Shift+6 move container to workspace 6 6:VI
+bindsym $mod+Shift+7 move container to workspace 7 7:VII
+bindsym $mod+Shift+8 move container to workspace 8 8:VIII
+bindsym $mod+Shift+9 move container to workspace 9 9:IX
+bindsym $mod+Shift+0 move container to workspace 10 10:X
+
+# [ Layout stuff ]
+
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# move focus to the parent container
+bindsym $mod+a focus parent
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# [ Resizing ]
+
+# enable resize mode
+bindsym $mod+r mode "resize"
+
+# on resize modifiers
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# [ Appearance ]
+
+# set font
+font "JetBrains Mono Nerd Font 9"
+
+# set colors on focused window
+client.focused #ffffff00 #000000 #ffffff #021727 #000000
+
+#  gaps
+smart_gaps off
+smart_borders off
+
+gaps inner 4
+gaps outer 4
+
+# window manager options 
+hide_edge_borders none
+show_marks yes
+focus_follows_mouse no
+focus_on_window_activation smart
+
+# remap app titles
+for_window    [app_id="(?i)firefox"]                      title_format "  %title"
+for_window    [app_id="Alacritty"]                        title_format "  %title"
+
+# [ Services ]
+
+# set bar
+bar {
+  id mainbar
+  output *
+  swaybar_command waybar
+}
+
+# run notification deamon
+exec mako
+
+exec /usr/bin/keepassxc
+
+# lock after 600ms
+exec swayidle -w \
+  timeout 600 'swaylock'
+
+include @sysconfdir@/sway/config.d/*
