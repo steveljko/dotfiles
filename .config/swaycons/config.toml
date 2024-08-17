@@ -1,0 +1,18 @@
+[global]
+color = "#FFFFFF"
+focused_color = "#FFFFFF"
+icon = "󰖯"
+size = "9pt"
+separator = " "
+
+[app_id]
+firefox = { icon = "", color = "#ff8817", size = "8pt" }
+alacritty = { icon = " " }
+"org.keepassxc.KeePassXC" = { icon = "󱣧", color = "#4CAF50" }
+"org.pwmt.zathura" = { icon = "", color = "#E11E2D" }
+
+[title]
+"startpage\\.com" = { icon = "", color = "#4285f4" }
+"github\\.com" = { icon = "" }
+
+nvim = { app_id = ["Alacritty"], icon = "", color = "#8fff6d" }

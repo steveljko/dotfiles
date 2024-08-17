@@ -143,10 +143,7 @@ mode "resize" {
 # [ Appearance ]
 
 # set font
-font "JetBrains Mono Nerd Font 9"
-
-# set colors on focused window
-client.focused #ffffff00 #000000 #ffffff #021727 #000000
+font pango:JetBrains Mono Nerd Font 9
 
 #  gaps
 smart_gaps off
@@ -161,10 +158,6 @@ show_marks yes
 focus_follows_mouse no
 focus_on_window_activation smart
 
-# remap app titles
-for_window    [app_id="(?i)firefox"]                      title_format "  %title"
-for_window    [app_id="Alacritty"]                        title_format "  %title"
-
 # [ Services ]
 
 # set bar
@@ -176,6 +169,8 @@ bar {
 
 # run notification deamon
 exec mako
+
+exec swaycons
 
 exec /usr/bin/keepassxc
 
