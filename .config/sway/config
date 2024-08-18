@@ -40,17 +40,20 @@ bindsym $mod+d exec $menu
 # kill focused window
 bindsym $mod+Shift+q kill
 
-bindsym Print exec grim - | wl-copy && notify-send "Whole screen screenshot is copied to clipboard."
-bindsym $mod+Print exec grim -g "$(slurp -d)" - | wl-copy && notify-send "Screenshot is copied to clipboard."
-bindsym $mod+Shift+p exec grim ~/Pictures/Screenshots/$(date +'%s_grim.png') && notify-send "Screenshot has been store in directory."
+# screenshot controls
+bindsym Print exec ~/.local/scripts/screenshot-tool screen-copy
+bindsym $mod+Print exec ~/.local/scripts/screenshot-tool screen-save
+bindsym Shift+Print exec ~/.local/scripts/screenshot-tool select-copy
+bindsym $mod+Shift+Print exec ~/.local/scripts/screenshot-tool select-save
 
 # volume controls
-bindsym $mod+Alt+O exec pamixer -d 10
-bindsym $mod+Alt+P exec pamixer -i 10
-bindsym $mod+Alt+I exec pamixer -i 5
-bindsym $mod+Alt+U exec pamixer -d 5
-bindsym $mod+Alt+M exec pamixer -t
-bindsym $mod+Alt+K exec playerctl play-pause
+bindsym $mod+Alt+P exec ~/.local/scripts/volume up
+bindsym $mod+Alt+O exec ~/.local/scripts/volume down
+bindsym $mod+Alt+M exec ~/.local/scripts/volume mute 
+
+bindsym --whole-window $mod+button8 exec ~/.local/scripts/volume up
+bindsym --whole-window $mod+button9 exec ~/.local/scripts/volume down
+bindsym --whole-window $mod+button8+button9 exec ~/.local/scripts/volume mute
 
 # set floating window behavior to normal when activated with the modifier key
 floating_modifier $mod normal

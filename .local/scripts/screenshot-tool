@@ -1,0 +1,28 @@
+#!/bin/bash
+
+SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
+
+case "$1" in
+    screen-save)
+        FILENAME="$SCREENSHOT_DIR/$(date +'%s_grim.png')"
+        grim "$FILENAME"
+        notify-send "Full-screen screenshot saved to screenshot directory"
+        ;;
+    screen-copy)
+        grim - | wl-copy
+        notify-send "Full-screen screenshot copied to clipboard"
+        ;;
+    select-save)
+        FILENAME="$SCREENSHOT_DIR/$(date +'%s_grim.png')"
+        grim -g "$(slurp -d)" "$FILENAME"
+        notify-send "Partial screenshot saved to screenshot directory"
+        ;;
+    select-copy)
+        grim -g "$(slurp -d)" - | wl-copy
+        notify-send "Partial screenshot copied to clipboard"
+        ;;
+    *)
+        echo "Invalid option. Use: screen-save, screen-copy, select-save, select-copy"
+        exit 1
+        ;;
+esac

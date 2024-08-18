@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ $1 == "up" ]]; then
+    pamixer -i 5
+elif [[ $1 == "down" ]]; then
+    pamixer -d 5
+elif [[ $1 == "mute" ]]; then
+    pamixer -t
+fi
+
+volume=$(pamixer --get-volume)
+is_muted=$(pamixer --get-mute)
+
+if [[ $is_muted == "true" ]]; then
+    notify-send "Volume muted" -h int:value:0 -h string:x-canonical-private-synchronous:volume
+else
+    notify-send "Volume $volume%" -h int:value:$volume -h string:x-canonical-private-synchronous:volume
+fi
+
