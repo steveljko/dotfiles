@@ -43,7 +43,7 @@
       }
     },
     "custom/tasks": {
-      "format": "{icon} <span color='#b2b2b2'>{}</span>",
+      "format": "{icon} <span color='#dce0e3'>{}</span>",
       "format-icons": {
         "tracking": "",
         "idle": ""
@@ -58,19 +58,19 @@
     },
     "clock": {
       "timezone": "Europe/Belgrade",
-      "format": "  <span color='#b2b2b2'>{:%I:%M %p}</span>",
-      "format-alt": "󰃮  <span color='#b2b2b2'>{:%d %B %Y (%a)}</span>"
+      "format": "  <span color='#dce0e3'>{:%I:%M %p}</span>",
+      "format-alt": "󰃮  <span color='#dce0e3'>{:%d %B %Y (%a)}</span>"
     },
     "cpu": {
-      "format": "  <span color='#b2b2b2'>{usage}%</span>",
+      "format": "  <span color='#dce0e3'>{usage}%</span>",
       "tooltip": true
     },
     "memory": {
-      "format": "  <span color='#b2b2b2'>{}%</span>"
+      "format": "  <span color='#dce0e3'>{}%</span>"
     },
     "pulseaudio": {
       "scroll-step": 5,
-      "format": "{icon}  <span color='#b2b2b2'>{volume}%</span>",
+      "format": "{icon}  <span color='#dce0e3'>{volume}%</span>",
       "format-icons": {
         "default": ["", "", ""]
       },

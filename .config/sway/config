@@ -16,7 +16,7 @@ set $menu fuzzel
 # [ Output ]
 
 # background
-output * bg ~/Pictures/waaaaaaaaaaaa.jpg fill
+output * bg ~/.wp fill
 
 # monitor
 output HDMI-A-1 resolution 1920x1080 position 1440,0
@@ -146,14 +146,18 @@ mode "resize" {
 # [ Appearance ]
 
 # set font
-font pango:JetBrains Mono Nerd Font 9
+font pango:Commit Mono Nerd Font 9
+
+# colors
+client.focused   #1e2124BF #1e2124BF #ffffff #1e2124BF #1e2124BF
+client.unfocused #516673BF #516673BF #edeff1 #516673BF #516673BF 
 
 #  gaps
 smart_gaps off
 smart_borders off
 
-gaps inner 4
-gaps outer 4
+gaps inner 8
+gaps outer 8
 
 # window manager options 
 hide_edge_borders none
