@@ -72,6 +72,7 @@ require('lazy').setup({
       require("transparent").setup()
       vim.cmd("TransparentEnable")
       vim.cmd("highlight WinSeparator guifg=#40484e ctermfg=235")
+      vim.cmd("highlight Comment guifg=#869AA6")
     end
   },
 
@@ -487,6 +488,11 @@ vim.g.maplocalleader = ',' -- set local leader key to ','
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true, silent = true })
 
+-- faster saving and quiting
+vim.api.nvim_set_keymap('n', '<leader>w', ':w<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })
+
+
 -- faster file navigation
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
@@ -522,7 +528,7 @@ vim.keymap.set('n', '<C-t>', '<Cmd>:TodoTelescope<CR>', { noremap = true, silent
 vim.keymap.set("n", "]t", function() require("todo-comments").jump_next() end)             -- jump bo next TODO comment
 vim.keymap.set("n", "[t", function() require("todo-comments").jump_prev() end)             -- jump to previous TODO comment
 
-vim.keymap.set('n', '<leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true }) -- toggle file tree
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true }) -- toggle file tree
 
 -- window split
 vim.keymap.set('n', '<leader>sv', ':vsplit<CR><C-w>l', { noremap = true, silent = true })
