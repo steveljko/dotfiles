@@ -379,7 +379,18 @@ require('lazy').setup({
           filetypes = { "elixir", "eelixir", "heex" },
           cmd = { "/home/p4d50/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
           settings = {},
-        }
+        },
+        gopls = {
+          settings = {
+            gopls = {
+              analyses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+              gofumpt = true,
+            },
+          },
+        },
       }
 
       for server_name, config in pairs(servers) do
