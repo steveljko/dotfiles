@@ -1,0 +1,79 @@
+[font]
+size = 9
+offset.x = 0
+offset.y = 5
+
+[font.normal]
+family = "Commit Mono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "Commit Mono Nerd Font"
+style = "Regular"
+
+[font.italic]
+family = "Commit Mono Nerd Font"
+style = "Italic"
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[shell]
+args = ["--login"]
+program = "/bin/zsh"
+
+[window]
+decorations = "full"
+dynamic_padding = true
+dynamic_title = true 
+opacity = 0.86
+
+[window.dimensions]
+columns = 80
+lines = 28
+
+[window.padding]
+x = 4
+y = 4
+
+[[keyboard.bindings]]
+key = "S"
+mods = "Control|Shift"
+chars = "tmux-session\n"
+
+[colors.primary]
+background = '#1e2124' 
+foreground = '#e2e7e8'
+
+[colors.normal]
+black   = '#1b1d20'
+red     = '#ed333b'
+green   = '#4b8b51'
+yellow  = '#e8a63b'
+blue    = '#566ab1'
+magenta = '#e26d5c'
+cyan    = '#8391a7'
+white   = '#D4DBDD'
+
+[colors.bright]
+black   = '#777d85'
+red     = '#e26d5c'
+green   = '#b3c3a4'
+yellow  = '#E2B05C'
+blue    = '#a2c4ff'
+magenta = '#c3a4b3'
+cyan    = '#4c555c'
+white   = '#e2e7e8'
+
+[colors.cursor]
+text   = '#1b1d20'
+cursor = '#ed333b'
+
+[colors.selection]
+text        = '#e2e7e8'
+background = '#2b3237'
+
+[colors.line_indicator]
+foreground = '#e2e7e8'
+background = '#24292e'
