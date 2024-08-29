@@ -9,6 +9,12 @@
   border: none;
 }
 
+/* Tooltip */
+tooltip {
+  color: #fff;
+  background-color: rgba(81, 102, 115, 0.85);
+}
+
 /* Workspaces */
 #workspaces {
   margin: 0px 0px 0px 0px;
