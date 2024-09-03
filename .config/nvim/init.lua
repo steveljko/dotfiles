@@ -71,8 +71,8 @@ require('lazy').setup({
     config = function()
       require("transparent").setup()
       vim.cmd("TransparentEnable")
-      vim.cmd("highlight WinSeparator guifg=#40484e ctermfg=235")
       vim.cmd("highlight Comment guifg=#869AA6")
+      vim.cmd("highlight WinSeparator guifg=#40484e ctermfg=235")
     end
   },
 
@@ -91,16 +91,9 @@ require('lazy').setup({
   {
     'nvim-tree/nvim-tree.lua',
     config = function()
-      local HEIGHT_RATIO = 0.4
-      local WIDTH_RATIO = 0.4
-
       require("nvim-tree").setup({
-        sort = {
-          sorter = "case_sensitive",
-        },
-        filters = {
-          dotfiles = false,
-        },
+        sort = { sorter = "case_sensitive" },
+        filters = { dotfiles = false },
         disable_netrw = true,
         hijack_netrw = true,
         respect_buf_cwd = true,
@@ -110,43 +103,11 @@ require('lazy').setup({
           update_cwd = false
         },
         view = {
+          side = 'right',
           relativenumber = true,
-          float = {
-            enable = true,
-            open_win_config = function()
-              local screen_w = vim.opt.columns:get()
-              local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
-              local window_w = screen_w * WIDTH_RATIO
-              local window_h = screen_h * HEIGHT_RATIO
-              local window_w_int = math.floor(window_w)
-              local window_h_int = math.floor(window_h)
-              local center_x = (screen_w - window_w) / 2
-              local center_y = ((vim.opt.lines:get() - window_h) / 2)
-                  - vim.opt.cmdheight:get()
-              return {
-                border = "rounded",
-                relative = "editor",
-                row = center_y,
-                col = center_x,
-                width = window_w_int,
-                height = window_h_int,
-              }
-            end,
-          },
-          width = function()
-            return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
-          end,
         },
         renderer = {
-          add_trailing = false,
-          group_empty = false,
-          highlight_git = false,
-          full_name = false,
-          highlight_opened_files = 'none',
           root_folder_modifier = ':~',
-          indent_markers = {
-            enable = true,
-          }
         },
       })
     end
@@ -554,7 +515,6 @@ vim.keymap.set('n', '<C-w><', ':vertical resize -5<CR>', { noremap = true, silen
 -- close split
 vim.keymap.set('n', '<leader>qc', ':q<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>qo', ':only<CR>', { noremap = true, silent = true })
-
 
 vim.keymap.set({ 'n', 'x', 'o' }, 'H', '^')
 vim.keymap.set({ 'n', 'x', 'o' }, 'L', '$')
