@@ -1,18 +1,18 @@
 [font]
 size = 9
 offset.x = 0
-offset.y = 5
+offset.y = 6
 
 [font.normal]
-family = "Commit Mono Nerd Font"
+family = "JetBrains Mono Nerd Font"
 style = "Regular"
 
 [font.bold]
-family = "Commit Mono Nerd Font"
+family = "JetBrains Mono Nerd Font"
 style = "Regular"
 
 [font.italic]
-family = "Commit Mono Nerd Font"
+family = "JetBrains Mono Nerd Font"
 style = "Italic"
 
 [font.glyph_offset]
@@ -33,9 +33,9 @@ opacity = 0.86
 columns = 80
 lines = 28
 
-[window.padding]
-x = 4
-y = 4
+# [window.padding]
+# x = 4
+# y = 4
 
 [[keyboard.bindings]]
 key = "S"
