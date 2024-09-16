@@ -5,7 +5,8 @@
 
 /* Background */
 #waybar {
-  background: rgba(81, 102, 115, 0.75);
+  /* background: rgba(81, 102, 115, 0.75); */
+  background: rgba(0, 0, 0, .15);
   border: none;
 }
 
