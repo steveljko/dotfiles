@@ -1,3 +1,6 @@
+vim.g.mapleader = ','      -- set leader key to ','
+vim.g.maplocalleader = ',' -- set local leader key to ','
+
 -- [ Settings ]
 vim.g.loaded_netrw = 1        -- Disable netrw
 vim.g.loaded_netrwPlugin = 1  -- Disable netrwPlugin
@@ -57,23 +60,12 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- colorscheme
   {
-    'mcauley-penney/ice-cave.nvim',
-    lazy = false,
+    "ellisonleao/gruvbox.nvim",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme('ice-cave')
-    end
-  },
-
-  -- nvim transparency
-  {
-    "xiyaowong/transparent.nvim",
-    config = function()
-      require("transparent").setup()
-      vim.cmd("TransparentEnable")
-      vim.cmd("highlight Comment guifg=#869AA6")
-      vim.cmd("highlight WinSeparator guifg=#40484e ctermfg=235")
-    end
+      require("gruvbox").setup({ contrast = "hard" })
+      vim.cmd([[colorscheme gruvbox]])
+    end,
   },
 
   { 'AndrewRadev/splitjoin.vim' }, -- plugin to toggle between single-line and multi-line code blocks
@@ -113,33 +105,63 @@ require('lazy').setup({
     end
   },
 
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    keys = {
+      { "<leader>e", "<cmd>Neotree toggle<CR>" },
+    }
+  },
+
   -- statusline
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'meuter/lualine-so-fancy.nvim' },
     opts = {
-      theme = 'auto',
-      icons_enabled = true,
-      globalstatus = true,
-      refresh = { statusline = 1000 },
+      options = {
+        theme = "auto",
+        icons_enabled = true,
+        component_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
+        disabled_filetypes = {},
+        always_divide_middle = true,
+        globalstatus = true,
+      },
       sections = {
-        lualine_a = {
-          { 'mode', fmt = function(str) return str:sub(1, 1) end },
-        },
-        lualine_b = { 'fancy_branch' },
-        lualine_c = {
-          'filename',
-          { "fancy_diagnostics", sources = { "nvim_lsp" }, symbols = { error = " ", warn = " ", info = " " } },
-          'fancy_searchcount',
-        },
-        lualine_x = {
-          'fancy_lsp_servers',
-          'fancy_diff',
-          'progress',
-        },
+        lualine_a = { "mode" },
+        lualine_b = { { "fancy_diagnostics", sources = { "nvim_lsp" }, symbols = { error = " ", warn = " ", info = " " } } },
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = { "diff", "fancy_lsp_servers" },
+        lualine_z = { "fancy_branch", "filetype" },
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
         lualine_y = {},
-        lualine_z = {}
-      }
+        lualine_z = {},
+      },
+      tabline = {},
+      extensions = {},
+    },
+  },
+
+  {
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "<C-f>", "<Cmd>:FzfLua files<CR>" },
+      { "<C-g>", "<Cmd>:FzfLua grep<CR>" },
+      { "<C-b>", "<Cmd>:FzfLua buffers<CR>" },
+      { "<C-t>", "<Cmd>:TodoFzfLua<CR>" },
+      { "<C-p>", "<Cmd>:FzfLua git_commits<CR>" }
     },
   },
 
@@ -194,6 +216,20 @@ require('lazy').setup({
       require('telescope').load_extension('fzf')
       require('telescope').load_extension('ui-select')
     end
+  },
+
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",  -- required
+      "sindrets/diffview.nvim", -- optional - Diff integration
+    },
+    config = function()
+      require('neogit').setup {}
+    end,
+    keys = {
+      { "<leader>g", "<Cmd>:Neogit<CR>" },
+    },
   },
 
   {
@@ -313,22 +349,6 @@ require('lazy').setup({
         emmet_language_server = {
           filetypes = { "css", "html", "javascript", "vue" },
           cmd = { "emmet-language-server", "--stdio" },
-        },
-        tsserver = {
-          init_options = {
-            plugins = {
-              {
-                name = "@vue/typescript-plugin",
-                location = "/usr/lib/node_modules/@vue/language-server",
-                languages = { "vue" },
-              }
-            },
-          },
-          filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-        },
-        volar = {
-          filetypes = { "vue", "javascript", "html", "css" },
-          cmd = { "vue-language-server", "--stdio" },
         },
         phpactor = {
           init_options = {
@@ -453,8 +473,8 @@ require('lazy').setup({
 })
 
 -- [ KEYMAPS ]
-vim.g.mapleader = ','      -- set leader key to ','
-vim.g.maplocalleader = ',' -- set local leader key to ','
+-- vim.g.mapleader = ','      -- set leader key to ','
+-- vim.g.maplocalleader = ',' -- set local leader key to ','
 
 -- faster escaping
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
@@ -489,18 +509,9 @@ vim.keymap.set('n', '<leader>tr', "<Cmd>lua require('neotest').run.run()<CR>")  
 vim.keymap.set('n', '<leader>tt', "<Cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>") -- Run all tests in the current file
 vim.keymap.set('n', '<leader>to', "<Cmd>lua require('neotest').summary.toggle()<CR>")            -- Toggle test summary
 
--- telescope
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<C-f>', builtin.find_files, {})
-vim.keymap.set('n', '<C-g>', builtin.live_grep, {})
-vim.keymap.set('n', '<C-b>', builtin.buffers, {})
-vim.keymap.set('n', '<C-t>', '<Cmd>:TodoTelescope<CR>', { noremap = true, silent = true })
-
 -- navigate between TODO comments
-vim.keymap.set("n", "]t", function() require("todo-comments").jump_next() end)             -- jump bo next TODO comment
-vim.keymap.set("n", "[t", function() require("todo-comments").jump_prev() end)             -- jump to previous TODO comment
-
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true }) -- toggle file tree
+vim.keymap.set("n", "]t", function() require("todo-comments").jump_next() end) -- jump bo next TODO comment
+vim.keymap.set("n", "[t", function() require("todo-comments").jump_prev() end) -- jump to previous TODO comment
 
 -- window split
 vim.keymap.set('n', '<leader>sv', ':vsplit<CR><C-w>l', { noremap = true, silent = true })
