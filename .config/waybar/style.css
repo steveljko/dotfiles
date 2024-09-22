@@ -5,15 +5,13 @@
 
 /* Background */
 #waybar {
-  /* background: rgba(81, 102, 115, 0.75); */
-  background: rgba(0, 0, 0, .15);
-  border: none;
+  background: rgba(0, 0, 0, .25);
 }
 
 /* Tooltip */
 tooltip {
   color: #fff;
-  background-color: rgba(81, 102, 115, 0.85);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Workspaces */
