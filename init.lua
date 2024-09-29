@@ -101,31 +101,6 @@ require('lazy').setup({
 
   -- file explorer
   {
-    'nvim-tree/nvim-tree.lua',
-    config = function()
-      require("nvim-tree").setup({
-        sort = { sorter = "case_sensitive" },
-        filters = { dotfiles = false },
-        disable_netrw = true,
-        hijack_netrw = true,
-        respect_buf_cwd = true,
-        sync_root_with_cwd = true,
-        update_focused_file = {
-          enable = false,
-          update_cwd = false
-        },
-        view = {
-          side = 'right',
-          relativenumber = true,
-        },
-        renderer = {
-          root_folder_modifier = ':~',
-        },
-      })
-    end
-  },
-
-  {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
