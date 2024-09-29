@@ -1,22 +1,24 @@
 sync: clean
-	mkdir -p ~/.config/alacritty
-	mkdir -p ~/.config/nvim
-	mkdir -p ~/.config/sway
-	mkdir -p ~/.config/swaylock
-	mkdir -p ~/.config/swaycons
+	mkdir -p ~/.config/alacritty		# terminal
+	mkdir -p ~/.config/nvim					# editor
+	mkdir -p ~/.config/sway					# window manager
+	mkdir -p ~/.config/swaylock			# screenlock 
+	mkdir -p ~/.config/swaycons			# titlebar icons
+	mkdir -p ~/.config/mako					# notification deamon
 	# Waybar
-	mkdir -p ~/.config/waybar
+	mkdir -p ~/.config/waybar				# bar
 	mkdir -p ~/.config/waybar/modules
 	# Scripts
-	mkdir -p ~/.local/scripts
+	mkdir -p ~/.local/scripts				# custom made scripts
 
 	[ -f ~/.config/alacritty/alacritty.toml ] || ln -s $(PWD)/alacritty.toml ~/.config/alacritty/alacritty.toml
 	[ -f ~/.config/nvim/init.lua ] || ln -s $(PWD)/init.lua ~/.config/nvim/init.lua
 	[ -f ~/.zshrc ] || ln -s $(PWD)/zshrc ~/.zshrc
-	[ -f ~/.tmux.conf ] || ln -s $(PWD)/tmuxconf ~/.tmux.conf
-	[ -f ~/.config/sway/config ] || ln -s $(PWD)/swayconf ~/.config/sway/config
-	[ -f ~/.config/swaylock/config ] || ln -s $(PWD)/swaylockconf ~/.config/swaylock/config
-	[ -f ~/.config/swaycons/config.toml ] || ln -s $(PWD)/swaycons.toml ~/.config/swaycons/config.toml
+	[ -f ~/.tmux.conf ] || ln -s $(PWD)/tmuxcfg ~/.tmux.conf
+	[ -f ~/.config/sway/config ] || ln -s $(PWD)/swaycfg ~/.config/sway/config
+	[ -f ~/.config/swaylock/config ] || ln -s $(PWD)/swaylockcfg ~/.config/swaylock/config
+	[ -f ~/.config/swaycons/config.toml ] || ln -s $(PWD)/makocfg ~/.config/mako/config
+	[ -f ~/.config/mako/config ] || ln -s $(PWD)/makocfg ~/.config//config.toml
 	# Waybar
 	[ -f ~/.config/waybar/config.jsonc ] || ln -s $(PWD)/waybar/config.jsonc ~/.config/waybar/config.jsonc
 	[ -f ~/.config/waybar/style.css ] || ln -s $(PWD)/waybar/style.css ~/.config/waybar/style.css
@@ -36,6 +38,7 @@ clean:
 	rm -rf ~/.config/sway/*
 	rm -rf ~/.config/swaylock/*
 	rm -rf ~/.config/swaycons/*
+	rm -rf ~/.config/mako/*
 	rm -rf ~/.config/waybar/*
 	rm -rf ~/.local/scripts/*
 	rm -f ~/Pictures/.wp

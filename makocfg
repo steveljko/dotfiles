@@ -1,0 +1,25 @@
+markup=1
+actions=1
+
+font=Commit Mono Nerd Font 9
+format=%s\n%b
+sort=-time
+output=DP-2
+layer=overlay
+anchor=top-right
+background-color=#00000080
+width=300
+height=110
+margin=16
+padding=0,5,10
+border-size=1
+border-color=#1E2124BF
+border-radius=4
+icons=0
+max-icon-size=64
+default-timeout=5000
+ignore-timeout=1
+progress-color=over #516673BF
+
+[urgency=normal]
+border-color=#1E2124BF
