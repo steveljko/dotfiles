@@ -21,12 +21,12 @@ sync: clean
 	[ -f ~/.config/waybar/config.jsonc ] || ln -s $(PWD)/waybar/config.jsonc ~/.config/waybar/config.jsonc
 	[ -f ~/.config/waybar/style.css ] || ln -s $(PWD)/waybar/style.css ~/.config/waybar/style.css
 	[ -f ~/.config/waybar/modules/tasks.sh ] || ln -s $(PWD)/waybar/modules/tasks.sh ~/.config/waybar/modules/tasks.sh
-	# Wallpaper
-	[ -f ~/Pictures/.wp ] || ln -s $(PWD)/.wp ~/Pictures/.wp
 	# Scripts
 	[ -f ~/.local/scripts/tmux-session ] || ln -s $(PWD)/scripts/tmux-session ~/.local/scripts/tmux-session
 	[ -f ~/.local/scripts/screenshot-tool ] || ln -s $(PWD)/scripts/screenshot-tool ~/.local/scripts/screenshot-tool
 	[ -f ~/.local/scripts/volume ] || ln -s $(PWD)/scripts/volume ~/.local/scripts/volume
+	# Wallpaper
+	[ -f ~/Pictures/.wp ] || ln -s $(PWD)/.wp ~/Pictures/.wp
 	
 clean:
 	rm -rf ~/.config/alacritty/*
@@ -38,6 +38,6 @@ clean:
 	rm -rf ~/.config/swaycons/*
 	rm -rf ~/.config/waybar/*
 	rm -rf ~/.local/scripts/*
-	rm -f ~/.wp
+	rm -f ~/Pictures/.wp
 
 .PHONY: clean sync
