@@ -16,7 +16,7 @@ set $menu fuzzel
 # [ Output ]
 
 # background
-output * bg ~/.wp fill
+output * bg ~/Pictures/.wp fill
 
 # monitor
 output HDMI-A-1 resolution 1920x1080 position 1440,0

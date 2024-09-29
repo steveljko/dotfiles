@@ -1,37 +1,43 @@
-REPO_URL = https://github.com/steveljko/dotfiles.git
-LOCAL_DIR = ~/path/to/local/dir
-CONFIG_FILES = \
-    .tmux.conf:~/.tmux.conf \
-    .wp:~/.wp \
-    .zshrc:~/.zshrc \
-    alacritty:~/.config/alacritty \
-    nvim:~/.config/nvim \
-    sway:~/.config/sway \
-    swaycons:~/.config/swaycons \
-    swaylock:~/.config/swaylock \
-    waybar:~/.config/waybar
+sync: clean
+	mkdir -p ~/.config/alacritty
+	mkdir -p ~/.config/nvim
+	mkdir -p ~/.config/sway
+	mkdir -p ~/.config/swaylock
+	mkdir -p ~/.config/swaycons
+	# Waybar
+	mkdir -p ~/.config/waybar
+	mkdir -p ~/.config/waybar/modules
+	# Scripts
+	mkdir -p ~/.local/scripts
 
-sync: pull
-	@echo "Creating symbolic links for configuration files..."
-	@for file in $(CONFIG_FILES); do \
-		IFS=: read src dest <<< "$file"; \
-		if [ -e "$dest" ] || [ -L "$dest" ]; then \
-			echo "Removing existing file/link: $dest"; \
-			rm -rf "$dest"; \
-		fi; \
-		ln -s $(LOCAL_DIR)/$src $dest; \
-		echo "Created symlink: $dest -> $(LOCAL_DIR)/$src"; \
-	done
-	@echo "Sync complete."
+	[ -f ~/.config/alacritty/alacritty.toml ] || ln -s $(PWD)/alacritty.toml ~/.config/alacritty/alacritty.toml
+	[ -f ~/.config/nvim/init.lua ] || ln -s $(PWD)/init.lua ~/.config/nvim/init.lua
+	[ -f ~/.zshrc ] || ln -s $(PWD)/zshrc ~/.zshrc
+	[ -f ~/.tmux.conf ] || ln -s $(PWD)/tmuxconf ~/.tmux.conf
+	[ -f ~/.config/sway/config ] || ln -s $(PWD)/swayconf ~/.config/sway/config
+	[ -f ~/.config/swaylock/config ] || ln -s $(PWD)/swaylockconf ~/.config/swaylock/config
+	[ -f ~/.config/swaycons/config.toml ] || ln -s $(PWD)/swaycons.toml ~/.config/swaycons/config.toml
+	# Waybar
+	[ -f ~/.config/waybar/config.jsonc ] || ln -s $(PWD)/waybar/config.jsonc ~/.config/waybar/config.jsonc
+	[ -f ~/.config/waybar/style.css ] || ln -s $(PWD)/waybar/style.css ~/.config/waybar/style.css
+	[ -f ~/.config/waybar/modules/tasks.sh ] || ln -s $(PWD)/waybar/modules/tasks.sh ~/.config/waybar/modules/tasks.sh
+	# Wallpaper
+	[ -f ~/Pictures/.wp ] || ln -s $(PWD)/.wp ~/Pictures/.wp
+	# Scripts
+	[ -f ~/.local/scripts/tmux-session ] || ln -s $(PWD)/scripts/tmux-session ~/.local/scripts/tmux-session
+	[ -f ~/.local/scripts/screenshot-tool ] || ln -s $(PWD)/scripts/screenshot-tool ~/.local/scripts/screenshot-tool
+	[ -f ~/.local/scripts/volume ] || ln -s $(PWD)/scripts/volume ~/.local/scripts/volume
+	
+clean:
+	rm -rf ~/.config/alacritty/*
+	rm -rf ~/.config/nvim/*
+	rm -f ~/.zshrc
+	rm -f ~/.tmux.conf
+	rm -rf ~/.config/sway/*
+	rm -rf ~/.config/swaylock/*
+	rm -rf ~/.config/swaycons/*
+	rm -rf ~/.config/waybar/*
+	rm -rf ~/.local/scripts/*
+	rm -f ~/.wp
 
-pull:
-	@echo "Pulling latest changes from the repository..."
-	@cd $(LOCAL_DIR) && git pull $(REPO_URL)
-
-setup:
-	@echo "Setting up local directory..."
-	@mkdir -p $(LOCAL_DIR)
-	@cd $(LOCAL_DIR) && git clone $(REPO_URL) .
-
-.PHONY: sync pull setup
-
+.PHONY: clean sync
