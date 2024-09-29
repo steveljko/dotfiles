@@ -17,8 +17,8 @@ sync: clean
 	[ -f ~/.tmux.conf ] || ln -s $(PWD)/tmuxcfg ~/.tmux.conf
 	[ -f ~/.config/sway/config ] || ln -s $(PWD)/swaycfg ~/.config/sway/config
 	[ -f ~/.config/swaylock/config ] || ln -s $(PWD)/swaylockcfg ~/.config/swaylock/config
-	[ -f ~/.config/swaycons/config.toml ] || ln -s $(PWD)/makocfg ~/.config/mako/config
-	[ -f ~/.config/mako/config ] || ln -s $(PWD)/makocfg ~/.config//config.toml
+	[ -f ~/.config/swaycons/config.toml ] || ln -s $(PWD)/swaycons.toml ~/.config/swaycons/swaycons.toml
+	[ -f ~/.config/mako/config ] || ln -s $(PWD)/makocfg ~/.config/config
 	# Waybar
 	[ -f ~/.config/waybar/config.jsonc ] || ln -s $(PWD)/waybar/config.jsonc ~/.config/waybar/config.jsonc
 	[ -f ~/.config/waybar/style.css ] || ln -s $(PWD)/waybar/style.css ~/.config/waybar/style.css
