@@ -150,21 +150,42 @@ mode "resize" {
 font pango:Commit Mono Nerd Font 9
 
 # colors
-client.focused   #1e2124BF #1e2124BF #ffffff #1e2124BF #1e2124BF
-client.unfocused #516673BF #516673BF #edeff1 #516673BF #516673BF 
+# client.focused   #1e2124BF #1e2124BF #ffffff #1e2124BF #1e2124BF
+# client.unfocused #516673BF #516673BF #edeff1 #516673BF #516673BF 
 
 #  gaps
 smart_gaps off
 smart_borders off
 
-gaps inner 8
-gaps outer 8
+# gaps inner 8
+# gaps outer 8
 
 # window manager options 
 hide_edge_borders none
 show_marks yes
 focus_follows_mouse no
-focus_on_window_activation smart
+# focus_on_window_activation smart
+
+# Gruvbox colors
+set $bg_color #282828
+set $bg_light #3c3836
+set $fg_color #ebdbb2
+set $fg_dark #fbf1c7
+set $red #fb4934
+set $green #b8bb26
+set $yellow #fabd2f
+set $blue #83a598
+set $purple #d3869b
+set $aqua #8ec07c
+set $orange #fe8019
+
+# Window colors
+client.focused          $blue $bg_color $fg_color $fg_color
+client.unfocused        $bg_light $bg_color $fg_dark $fg_dark
+client.focused_inactive $bg_light $bg_color $fg_dark $fg_dark
+client.urgent           $red $bg_color $fg_color $fg_color
+
+#for_window [app_id="Alacritty"] default_border pixel 1
 
 # [ Services ]
 
