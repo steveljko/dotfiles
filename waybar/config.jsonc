@@ -27,7 +27,7 @@
       "format": "{}"
     },
     "sway/language": {
-      "format": "<span text_transform='uppercase' font-weight='bold'>{short}</span>"
+      "format": "<span text_transform='uppercase' font-weight='bold'>  <span color='#dce0e3'>{short}</span></span>"
     },
     "sway/window": {
       "all-outputs": false,
@@ -39,7 +39,8 @@
         "(.*) — Mozilla Firefox"           : "󰈹 $1",
         "nvim (.*)"                        : " $1",
         "zsh (.*)"                         : " $1",
-        "(.*) - KeePassXC"                 : "  $1"
+        "(.*) - KeePassXC"                 : "  $1",
+        "Session - (.*)"                   : " $1"
       }
     },
     "custom/tasks": {
