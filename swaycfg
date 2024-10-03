@@ -157,8 +157,9 @@ font pango:Commit Mono Nerd Font 9
 smart_gaps off
 smart_borders off
 
-# gaps inner 8
-# gaps outer 8
+# add gaps
+gaps inner 4
+gaps outer 4
 
 # window manager options 
 hide_edge_borders none
@@ -185,7 +186,12 @@ client.unfocused        $bg_light $bg_color $fg_dark $fg_dark
 client.focused_inactive $bg_light $bg_color $fg_dark $fg_dark
 client.urgent           $red $bg_color $fg_color $fg_color
 
-#for_window [app_id="Alacritty"] default_border pixel 1
+# hide border
+default_border none
+default_floating_border none
+font pango:monospace 1
+titlebar_padding 1
+titlebar_border_thickness 0
 
 # [ Services ]
 
