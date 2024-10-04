@@ -60,12 +60,13 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- colorscheme
   {
-    "ellisonleao/gruvbox.nvim",
+    "rebelot/kanagawa.nvim",
     priority = 1000,
     config = function()
-      require("gruvbox").setup({ contrast = "hard" })
-      vim.cmd([[colorscheme gruvbox]])
-    end,
+      require('kanagawa').setup { theme = 'dragon' }
+
+      vim.cmd("colorscheme kanagawa")
+    end
   },
 
   { 'AndrewRadev/splitjoin.vim' }, -- plugin to toggle between single-line and multi-line code blocks
@@ -87,8 +88,6 @@ require('lazy').setup({
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
-
-  { "benmills/vimux" },
 
   {
     "rgroli/other.nvim",
@@ -131,9 +130,9 @@ require('lazy').setup({
         lualine_a = { "mode" },
         lualine_b = { { "fancy_diagnostics", sources = { "nvim_lsp" }, symbols = { error = " ", warn = " ", info = " " } } },
         lualine_c = {},
-        lualine_x = {},
-        lualine_y = { "diff", "fancy_lsp_servers" },
-        lualine_z = { "fancy_branch", "filetype" },
+        lualine_x = { "diff" },
+        lualine_y = { "fancy_lsp_servers", "fancy_branch" },
+        lualine_z = { "filetype" },
       },
       inactive_sections = {
         lualine_a = {},
@@ -158,59 +157,6 @@ require('lazy').setup({
       { "<C-t>", "<Cmd>:TodoFzfLua<CR>" },
       { "<C-p>", "<Cmd>:FzfLua git_commits<CR>" }
     },
-  },
-
-  -- telescope
-  {
-    'nvim-telescope/telescope.nvim',
-    tag = '0.1.8',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-      'nvim-telescope/telescope-ui-select.nvim',
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      require('telescope').setup {
-        defaults = {
-          mappings = {
-            i = {
-              ["<C-j>"] = require('telescope.actions').move_selection_next,
-              ["<C-k>"] = require('telescope.actions').move_selection_previous,
-              ["<C-d>"] = require('telescope.actions').delete_buffer,
-              ["<C-e>"] = require('telescope.actions').close,
-            },
-          },
-        },
-        pickers = {
-          find_files = {
-            theme = "ivy",
-            previewer = false,
-            prompt_title = "",
-            prompt_prefix = "[Find Files] ",
-            layout_config = { height = 0.30 },
-          },
-          buffers = {
-            theme = "ivy",
-            previewer = false,
-            prompt_title = "",
-            prompt_prefix = "[Buffers] ",
-            layout_config = { height = 0.30 },
-          },
-        },
-        extensions = {
-          fzf = {
-            fuzzy = true,                   -- false will only do exact matching
-            override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true,    -- override the file sorter
-            case_mode = "smart_case",
-          }
-        },
-      }
-
-      require('telescope').load_extension('fzf')
-      require('telescope').load_extension('ui-select')
-    end
   },
 
   {
@@ -467,10 +413,6 @@ require('lazy').setup({
   },
 })
 
--- [ KEYMAPS ]
--- vim.g.mapleader = ','      -- set leader key to ','
--- vim.g.maplocalleader = ',' -- set local leader key to ','
-
 -- faster escaping
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true, silent = true })
@@ -478,7 +420,6 @@ vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true, silent = true })
 -- faster saving and quiting
 vim.api.nvim_set_keymap('n', '<leader>w', ':w<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })
-
 
 -- faster file navigation
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
@@ -520,10 +461,6 @@ vim.keymap.set('n', '<leader>sx', '<cmd>close<CR>')
 -- resize splits
 vim.keymap.set('n', '<C-w>>', ':vertical resize +6<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-w><', ':vertical resize -5<CR>', { noremap = true, silent = true })
-
--- close split
-vim.keymap.set('n', '<leader>qc', ':q<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>qo', ':only<CR>', { noremap = true, silent = true })
 
 vim.keymap.set({ 'n', 'x', 'o' }, 'H', '^')
 vim.keymap.set({ 'n', 'x', 'o' }, 'L', '$')
