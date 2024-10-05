@@ -205,8 +205,6 @@ bar {
 # run notification deamon
 exec mako
 
-exec swaycons
-
 exec /usr/bin/keepassxc
 
 # lock after 600ms

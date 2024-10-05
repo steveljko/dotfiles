@@ -3,7 +3,6 @@ sync: clean
 	mkdir -p ~/.config/nvim					# editor
 	mkdir -p ~/.config/sway					# window manager
 	mkdir -p ~/.config/swaylock			# screenlock 
-	mkdir -p ~/.config/swaycons			# titlebar icons
 	mkdir -p ~/.config/mako					# notification deamon
 	# Waybar
 	mkdir -p ~/.config/waybar				# bar
@@ -17,7 +16,6 @@ sync: clean
 	[ -f ~/.tmux.conf ] || ln -s $(PWD)/tmuxcfg ~/.tmux.conf
 	[ -f ~/.config/sway/config ] || ln -s $(PWD)/swaycfg ~/.config/sway/config
 	[ -f ~/.config/swaylock/config ] || ln -s $(PWD)/swaylockcfg ~/.config/swaylock/config
-	[ -f ~/.config/swaycons/config.toml ] || ln -s $(PWD)/swaycons.toml ~/.config/swaycons/swaycons.toml
 	[ -f ~/.config/mako/config ] || ln -s $(PWD)/makocfg ~/.config/mako/config
 	# Waybar
 	[ -f ~/.config/waybar/config.jsonc ] || ln -s $(PWD)/waybar/config.jsonc ~/.config/waybar/config.jsonc
@@ -41,7 +39,6 @@ clean:
 	rm -f ~/.tmux.conf
 	rm -rf ~/.config/sway/*
 	rm -rf ~/.config/swaylock/*
-	rm -rf ~/.config/swaycons/*
 	rm -rf ~/.config/mako/*
 	rm -rf ~/.config/waybar/*
 	rm -rf ~/.local/scripts/*
