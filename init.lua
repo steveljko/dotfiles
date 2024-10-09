@@ -29,7 +29,7 @@ vim.opt.laststatus = 3        -- Set a global status line for Neovim
 vim.opt.swapfile = false      -- Disable swap files
 
 -- Use undodir to store undos
-vim.opt.undodir = vim.fn.expand('~/.vim/undodir')
+vim.opt.undodir = vim.fn.expand('~/.config/nvim/undodir')
 vim.opt.undofile = true
 
 -- Disable backup and write backup files
@@ -60,42 +60,23 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- colorscheme
   {
-    "rebelot/kanagawa.nvim",
+    "oxfist/night-owl.nvim",
+    lazy = false,
     priority = 1000,
     config = function()
-      require('kanagawa').setup { theme = 'dragon' }
-
-      vim.cmd("colorscheme kanagawa")
+      require('night-owl').setup()
+      vim.cmd.colorscheme("night-owl")
     end
   },
 
-  { 'AndrewRadev/splitjoin.vim' }, -- plugin to toggle between single-line and multi-line code blocks
-
   {
-    "christoomey/vim-tmux-navigator",
-    cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-    },
-    keys = {
-      { "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
-      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-    },
-  },
-
-  {
-    "rgroli/other.nvim",
-    config = function()
-      require("other-nvim").setup({
-        mappings = { "laravel" },
-      })
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
     end,
+    ft = { "markdown" },
   },
 
   -- file explorer
@@ -147,6 +128,7 @@ require('lazy').setup({
     },
   },
 
+  -- fuzzy finder
   {
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -159,15 +141,36 @@ require('lazy').setup({
     },
   },
 
+
+  { 'AndrewRadev/splitjoin.vim' }, -- plugin to toggle between single-line and multi-line code blocks
+
+  { 'vidocqh/auto-indent.nvim', opts = {} },
+
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+    },
+    keys = {
+      { "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
+  },
+
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim",  -- required
-      "sindrets/diffview.nvim", -- optional - Diff integration
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
     },
-    config = function()
-      require('neogit').setup {}
-    end,
+    config = true,
     keys = {
       { "<leader>g", "<Cmd>:Neogit<CR>" },
     },
@@ -186,6 +189,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
+      'windwp/nvim-ts-autotag',
     },
     build = ":TSUpdate",
     config = function()
@@ -193,24 +197,34 @@ require('lazy').setup({
         ensure_installed = {
           'php',
           'html',
+          'css',
           'javascript',
           'typescript',
-          'css',
           'vue',
         },
         indent = { enable = true },
         autopairs = { enable = true },
         highlight = { enable = true },
       }
+
+      require('nvim-ts-autotag').setup({
+        opts = {
+          enable_close = true,
+          enable_rename = true,
+          enable_close_on_slash = false
+        },
+        per_filetype = {
+          ["html"] = { enable_close = true },
+          ["php"] = { enable_close = true },
+        }
+      })
     end
   },
 
   -- faster commenting and uncommenting
   {
     'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-    end
+    config = true
   },
 
   {
@@ -243,16 +257,6 @@ require('lazy').setup({
   },
 
   {
-    "mfussenegger/nvim-lint",
-    event = "BufReadPre",
-    config = function()
-      require('lint').linters_by_ft = {
-        php = {},
-      }
-    end,
-  },
-
-  {
     "nvim-neotest/neotest",
     lazy = true,
     dependencies = {
@@ -261,79 +265,67 @@ require('lazy').setup({
     },
     config = function()
       require("neotest").setup({
-        adapters = {
-          require('neotest-pest'),
-        }
+        adapters = { require('neotest-pest') }
       })
     end
   },
 
-  -- language server protocol
+  -- mason
   {
-    'neovim/nvim-lspconfig',
+    "williamboman/mason.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+      "williamboman/mason-lspconfig.nvim",
+      "neovim/nvim-lspconfig",
       "hrsh7th/cmp-nvim-lsp",
-      "folke/neoconf.nvim",
     },
     config = function()
-      require("neoconf").setup({})
+      require("mason").setup()
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "stimulus_ls",
+          "emmet_language_server",
+          "lua_ls",
+          "phpactor"
+        },
+      })
+
       local lspconfig = require("lspconfig")
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
       local capabilities = cmp_nvim_lsp.default_capabilities()
 
-      local servers = {
-        lua_ls = {
-          settings = { Lua = { diagnostics = { globals = { 'vim' } } } }
-        },
-        emmet_language_server = {
-          filetypes = { "css", "html", "javascript", "vue" },
-          cmd = { "emmet-language-server", "--stdio" },
-        },
-        phpactor = {
-          init_options = {
-            ["language_server_phpstan.enabled"] = false,
-            ["language_Server_psalm.enalbed"] = false,
-          }
-        },
-        lexical = {
-          filetypes = { "elixir", "eelixir", "heex" },
-          cmd = { "/home/p4d50/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-          settings = {},
-        },
-        gopls = {
-          settings = {
-            gopls = {
-              analyses = {
-                unusedparams = true,
-              },
-              staticcheck = true,
-              gofumpt = true,
-            },
-          },
-        },
+      lspconfig.stimulus_ls.setup {
+        root_dir = function(_) return vim.loop.cwd() end,
+        capabilities = capabilities,
       }
 
-      for server_name, config in pairs(servers) do
-        config.capabilities = capabilities
-        lspconfig[server_name].setup(config)
-      end
+      lspconfig.emmet_language_server.setup {
+        root_dir = function(_) return vim.loop.cwd() end,
+        capabilities = capabilities,
+        filetypes = { "html", "css", "php", "javascript", "vue" },
+      }
+
+      lspconfig.lua_ls.setup {
+        capabilities = capabilities,
+        settings = { Lua = { diagnostics = { globals = { 'vim' } } } }
+      }
+
+      lspconfig.phpactor.setup {
+        root_dir = function(_) return vim.loop.cwd() end,
+        capabilities = capabilities,
+      }
 
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
       vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
         callback = function(ev)
-          -- Enable completion triggered by <c-x><c-o>
           vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-          -- Buffer local mappings.
-          -- See `:help vim.lsp.*` for documentation on any of the below functions
           local opts = { buffer = ev.buf }
+
           vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
           vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
@@ -341,9 +333,7 @@ require('lazy').setup({
           vim.keymap.set('n', '<C-s>h', vim.lsp.buf.signature_help, opts)
           vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
           vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-          vim.keymap.set('n', '<space>wl', function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, opts)
+          vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
           vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
           vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
           vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
@@ -353,7 +343,7 @@ require('lazy').setup({
           end, opts)
         end,
       })
-    end
+    end,
   },
 
   {
