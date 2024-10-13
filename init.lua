@@ -195,9 +195,9 @@ require('lazy').setup({
     config = function()
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
-          'php',
           'html',
           'css',
+          'php_only',
           'javascript',
           'typescript',
           'vue',
@@ -205,6 +205,22 @@ require('lazy').setup({
         indent = { enable = true },
         autopairs = { enable = true },
         highlight = { enable = true },
+      }
+
+      vim.filetype.add({
+        pattern = {
+          [".*%.blade%.php"] = "blade",
+        },
+      })
+
+      local parsers = require "nvim-treesitter.parsers".get_parser_configs()
+      parsers.blade = {
+        install_info = {
+          url = "https://github.com/EmranMR/tree-sitter-blade",
+          files = { "src/parser.c" },
+          branch = "main",
+        },
+        filetype = "blade"
       }
 
       require('nvim-ts-autotag').setup({
@@ -286,7 +302,8 @@ require('lazy').setup({
           "stimulus_ls",
           "emmet_language_server",
           "lua_ls",
-          "phpactor"
+          "phpactor",
+          "marksman"
         },
       })
 
@@ -302,7 +319,7 @@ require('lazy').setup({
       lspconfig.emmet_language_server.setup {
         root_dir = function(_) return vim.loop.cwd() end,
         capabilities = capabilities,
-        filetypes = { "html", "css", "php", "javascript", "vue" },
+        filetypes = { "html", "css", "php", "blade", "javascript", "vue" },
       }
 
       lspconfig.lua_ls.setup {
@@ -312,6 +329,10 @@ require('lazy').setup({
 
       lspconfig.phpactor.setup {
         root_dir = function(_) return vim.loop.cwd() end,
+        capabilities = capabilities,
+      }
+
+      lspconfig.marksman.setup {
         capabilities = capabilities,
       }
 
