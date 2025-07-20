@@ -1,0 +1,223 @@
+# [ Variables ]
+
+# logo key
+set $mod Mod4 
+
+# direction keys
+set $left h
+set $down j
+set $up k
+set $right l
+
+# preferred apps
+set $term ghostty
+set $menu fuzzel
+set $browser firefox
+set $password_manager keepassxc
+
+# scripts
+set $screenshot ~/.local/scripts/screenshot-tool
+set $volume ~/.local/scripts/volume
+
+# [ Output ]
+
+# background
+output * bg ~/Pictures/.wp fill
+
+# monitor config
+output HDMI-A-1 {
+    resolution 1920x1080
+    position 1440,0
+    adaptive_sync on
+    scale 1.0
+}
+
+# [ Input ]
+
+# keybord config
+input type:keyboard {
+    xkb_layout rs(latin),us,rs
+    xkb_options grp:rctrl_toggle,caps:escape
+    repeat_delay 300
+    repeat_rate 30
+}
+
+# [ Key Bindings ]
+
+# application shortcuts
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+g exec chromium --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto
+bindsym $mod+Shift+f exec $browser
+bindsym $mod+Shift+x exec $password_manager
+bindsym $mod+Shift+o exec $menu
+
+# system controls
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+# screenshot controls
+bindsym Print exec $screenshot screen-copy
+bindsym $mod+Print exec $screenshot screen-save
+bindsym Shift+Print exec $screenshot select-copy
+bindsym $mod+Shift+Print exec $screenshot select-save
+# bindsym $mod+Shift+p exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy 
+bindsym $mod+Shift+p exec wl-color-picker clipboard
+
+# audio controls
+bindsym $mod+Alt+p exec $volume up
+bindsym $mod+Alt+o exec $volume down
+bindsym $mod+Alt+m exec $volume mute
+
+# set floating window behavior to normal when activated with the modifier key
+floating_modifier $mod normal
+
+# [ Moving around ]
+
+# move focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# move windows around
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# [ Workspaces ]
+
+# workspace names
+set $ws1 "1:I"
+set $ws2 "2:II"
+set $ws3 "3:III"
+set $ws4 "4:IV"
+set $ws5 "5:V"
+set $ws6 "6:VI"
+set $ws7 "7:VII"
+set $ws8 "8:VIII"
+set $ws9 "9:IX"
+set $ws10 "10:X"
+
+# switch workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused window to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# workspace navigation
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+bindsym $mod+grave workspace back_and_forth
+
+# [ Layout ]
+
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# move focus to the parent container
+bindsym $mod+a focus parent
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# [ Resizing ]
+
+# enable resize mode
+bindsym $mod+r mode "resize"
+
+# on resize modifiers
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# [ Appearance ]
+
+font pango:Commit Mono Nerd Font 9
+
+# Gruvbox color scheme
+set $bg_color #282828
+set $bg_light #3c3836
+set $bg_dark #1d2021
+set $fg_color #ebdbb2
+set $fg_dark #fbf1c7
+set $red #fb4934
+set $green #b8bb26
+set $yellow #fabd2f
+set $blue #83a598
+set $purple #d3869b
+set $aqua #8ec07c
+set $orange #fe8019
+
+# window colors
+client.focused          $blue     $bg_dark   $fg_color $green    $blue
+client.focused_inactive $bg_light $bg_color  $fg_dark  $bg_light $bg_light
+client.unfocused        $bg_light $bg_color  $fg_dark  $bg_light $bg_light
+client.urgent           $red      $bg_color  $fg_color $red      $red
+client.placeholder      $bg_color $bg_color  $fg_dark  $bg_color $bg_color
+client.background       $bg_color
+
+# gaps and borders
+smart_gaps inverse_outer
+smart_borders on
+gaps inner 6
+gaps outer 4
+
+# window manager options
+hide_edge_borders smart
+show_marks no
+focus_follows_mouse no
+focus_on_window_activation smart
+mouse_warping output
+workspace_auto_back_and_forth yes
+
+# title bar
+title_align center
+titlebar_padding 8 4
+
+# [ Services ]
+
+# set bar
+bar {
+  id mainbar
+  output *
+  swaybar_command waybar
+}
+
+# run notification deamon
+exec mako
+
+include @sysconfdir@/sway/config.d/*
