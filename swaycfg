@@ -49,6 +49,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+g exec chromium --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto
 bindsym $mod+Shift+f exec $browser
 bindsym $mod+Shift+x exec $password_manager
+bindsym $mod+Shift+o exec $menu
 
 # system controls
 bindsym $mod+Shift+q kill
@@ -60,6 +61,8 @@ bindsym Print exec $screenshot screen-copy
 bindsym $mod+Print exec $screenshot screen-save
 bindsym Shift+Print exec $screenshot select-copy
 bindsym $mod+Shift+Print exec $screenshot select-save
+# bindsym $mod+Shift+p exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy 
+bindsym $mod+Shift+p exec wl-color-picker clipboard
 
 # audio controls
 bindsym $mod+Alt+p exec $volume up
